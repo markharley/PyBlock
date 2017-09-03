@@ -1,5 +1,5 @@
 # PyBlock
-Simply python blockchain
+Simple python blockchain
 
 # TODO
 1. Use more interesting proof-of-work
