@@ -2,6 +2,7 @@ import hashlib
 import json
 
 from datetime import datetime
+from merkle import compute_merkle
 
 
 class Block(object):
@@ -11,6 +12,7 @@ class Block(object):
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
+        self.merkle_root = compute_merkle(self.data['transactions'])
         self.hash = self.hash_block()
 
     def hash_block(self):
@@ -18,7 +20,8 @@ class Block(object):
         sha.update(str(self.index) +
                    str(self.timestamp) +
                    str(self.data) +
-                   str(self.previous_hash))
+                   str(self.previous_hash) +
+                   str(self.merkle_root))
         return sha.hexdigest()
 
     def to_json(self):
@@ -27,6 +30,7 @@ class Block(object):
             'timestamp': str(self.timestamp),
             'data': self.data,
             'hash': self.hash,
+            'merkle': self.merkle_root,
         })
 
     @classmethod
