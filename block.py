@@ -54,7 +54,7 @@ if __name__ == '__main__':
     previous_block = blockchain[0]
 
     for i in range(20):
-        data = 'This is block {}'.format(previous_block.index + 1)
+        data = {'transactions': 'This is block {}'.format(previous_block.index + 1)}
         next_block = Block.next_block(previous_block, data)
         previous_block = next_block
         print "New block index {} has been added to the blockchain".format(next_block.index)
